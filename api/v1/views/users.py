@@ -11,6 +11,9 @@ from flask import make_response, jsonify, abort, request
 def get_users():
     """ get list of users """
     users = storage.all(User).values()
+    if not users:
+        abort(404)
+
     all_users = []
     for user in users:
         all_users.append(user.to_dict())
