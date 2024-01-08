@@ -45,16 +45,16 @@ def delete_user(user_id):
                  methods=['POST'], strict_slashes=False)
 def post_user():
     """ post method for adding a user """
-    res = request.get_json()
-    if not res:
+    if not response.get_json():
         abort(400, description="Not a JSON")
 
-    if 'email' not in res:
+    if 'email' not in response.get_json():
         abort(400, description="Missing email")
 
-    if 'password' not in res:
+    if 'password' not in response.get_json():
         abort(400, description="Missing password")
 
+    res = request.get_json()
     user = User(**res)
     storage.new(user)
     storage.save()
